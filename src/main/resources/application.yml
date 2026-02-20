@@ -1,0 +1,53 @@
+spring:
+  application:
+    name: hiddenlonerbackend
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration
+
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: ${JPA_DDL_AUTO:validate}
+    properties:
+      hibernate:
+        format_sql: true
+        jdbc:
+          time_zone: Asia/Seoul
+    open-in-view: false
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 20MB
+  sql:
+    init:
+      mode: always
+
+server:
+  port: ${PORT:8080}
+
+supabase:
+  url: ${SUPABASE_URL}
+  anon-key: ${SUPABASE_ANON_KEY}
+  service-role-key: ${SUPABASE_SERVICE_ROLE_KEY:}
+  storage-bucket: ${SUPABASE_STORAGE_BUCKET:mission-images}
+  username-email-domain: ${SUPABASE_USERNAME_EMAIL_DOMAIN:hiddenloner.local}
+
+app:
+  admin:
+    usernames: ${APP_ADMIN_USERNAMES:}
+  dev:
+    bootstrap-enabled: ${APP_DEV_BOOTSTRAP_ENABLED:false}
+  security:
+    production-mode: ${APP_SECURITY_PRODUCTION_MODE:false}
+    expose-detailed-errors: ${APP_SECURITY_EXPOSE_DETAILED_ERRORS:false}
+    cors-allowed-origins: ${APP_CORS_ALLOWED_ORIGINS:http://localhost:3000,http://127.0.0.1:3000}
+
+logging:
+  level:
+    org.hibernate.SQL: info
